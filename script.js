@@ -196,30 +196,41 @@ const setPlayerCards = (arr = players) => {
     .join("");
 };
 
+const filterPlayer = (player, comparator) =>
+  comparator === "nickname"
+    ? player.nickname !== null
+    : player.position === comparator;
+
 playersDropdownList.addEventListener("change", (e) => {
   playerCards.innerHTML = "";
 
   switch (e.target.value) {
     case "nickname":
-      setPlayerCards(players.filter((player) => player.nickname !== null));
+      setPlayerCards(
+        players.filter((player) => filterPlayer(player, "nickname"))
+      );
       break;
     case "forward":
-      setPlayerCards(players.filter((player) => player.position === "forward"));
+      setPlayerCards(
+        players.filter((player) => filterPlayer(player, "forward"))
+      );
       break;
     case "midfielder":
       setPlayerCards(
-        players.filter((player) => player.position === "midfielder")
+        players.filter((player) => filterPlayer(player, "midfielder"))
       );
       break;
     case "defender":
       setPlayerCards(
-        players.filter((player) => player.position === "defender")
+        players.filter((player) => filterPlayer(player, "defender"))
       );
       break;
     case "goalkeeper":
       setPlayerCards(
-        players.filter((player) => player.position === "goalkeeper")
+        players.filter((player) => filterPlayer(player, "goalkeeper"))
       );
       break;
+    default:
+      setPlayerCards();
   }
 });
